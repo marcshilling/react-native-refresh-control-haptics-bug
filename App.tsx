@@ -6,13 +6,7 @@
  */
 
 import React, {useState} from 'react';
-import {
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {RefreshControl, SafeAreaView, ScrollView, Text} from 'react-native';
 
 function App(): React.JSX.Element {
   const [refreshing, setRefreshing] = useState(false);
@@ -26,22 +20,26 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <FlatList
+      <ScrollView
         style={{flex: 1}}
-        data={[1, 2, 3, 4, 5]}
+        contentContainerStyle={{
+          padding: 50,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
             tintColor="red"
           />
-        }
-        renderItem={() => (
-          <View
-            style={{height: 40, marginBottom: 5, backgroundColor: 'gray'}}
-          />
-        )}
-      />
+        }>
+        <Text style={{textAlign: 'center'}}>
+          {
+            '^ Pull to refresh ^\n\nThen, comment out tintColor, reload app, and try again'
+          }
+        </Text>
+      </ScrollView>
     </SafeAreaView>
   );
 }
